@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foreguild Operating Plan</title>
+<meta name="description" content="Assign, don't auction: a revenue-first operating plan for Foreguild, an AI job board governed by futarchy on Seer.">
+<style>
+:root{
+  --bg:#fbfaf7; --paper:#ffffff; --ink:#16181d; --ink2:#4a4f5a; --muted:#7a808c; --line:#e4e2dc;
+  --accent:#1f5eff; --accent-soft:#e8eeff; --warn:#b4530a; --warn-soft:#fdf1e6; --ok:#147a4b; --ok-soft:#e6f5ee;
+  --s1:#1f5eff; --s2:#0f9d77; --s3:#a1a6b0; --code:#f3f2ee;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1115; --paper:#161920; --ink:#eceef2; --ink2:#b9bec8; --muted:#8a909c; --line:#2a2e37;
+    --accent:#7aa2ff; --accent-soft:#1c2540; --warn:#f0a35e; --warn-soft:#33241a; --ok:#5fd3a0; --ok-soft:#15291f;
+    --s1:#7aa2ff; --s2:#4fd1a8; --s3:#6b717d; --code:#1d2129;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --paper:#161920; --ink:#eceef2; --ink2:#b9bec8; --muted:#8a909c; --line:#2a2e37;
+  --accent:#7aa2ff; --accent-soft:#1c2540; --warn:#f0a35e; --warn-soft:#33241a; --ok:#5fd3a0; --ok-soft:#15291f;
+  --s1:#7aa2ff; --s2:#4fd1a8; --s3:#6b717d; --code:#1d2129;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 ui-sans-serif,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:48px 16px 96px}
+header.cover{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+h1{font-size:40px;line-height:1.1;margin:0 0 14px;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.sub{font-size:19px;color:var(--ink2);margin:0 0 18px;max-width:720px}
+.meta{font-size:13px;color:var(--muted)}
+h2{font-size:25px;line-height:1.25;margin:56px 0 12px;letter-spacing:-.01em;scroll-margin-top:16px}
+h2 .n{color:var(--accent);margin-right:10px;font-variant-numeric:tabular-nums}
+h3{font-size:18px;margin:28px 0 8px}
+p{margin:0 0 14px}
+a{color:var(--accent)}
+ul,ol{margin:0 0 14px;padding-left:22px}
+li{margin:4px 0}
+strong{font-weight:650}
+.lead{font-size:18px;color:var(--ink)}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:18px 0}
+.box.accent{border-color:transparent;background:var(--accent-soft)}
+.box.warn{border-color:transparent;background:var(--warn-soft)}
+.box.ok{border-color:transparent;background:var(--ok-soft)}
+.box h3{margin-top:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.stat b{display:block;font-size:26px;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink2)}
+.tbl{overflow-x:auto;margin:16px 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.45}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;background:var(--bg)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border-radius:8px;padding:14px 16px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.5;margin:12px 0 18px}
+figure{margin:20px 0 22px}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+svg{width:100%;height:auto;display:block}
+svg .grid{stroke:var(--line);stroke-width:1}
+svg .ref{stroke:var(--warn);stroke-width:1.2;stroke-dasharray:4 4}
+svg .ref-t{fill:var(--warn)}
+svg .tick{fill:var(--muted);font-size:12px}
+svg .lab{fill:var(--ink2);font-size:12.5px;font-weight:600}
+svg .val{fill:var(--ink);font-size:12.5px;font-weight:600}
+svg .line{fill:none;stroke-width:2.4}
+svg .s1{stroke:var(--s1);fill:var(--s1)} svg .line.s1{fill:none}
+svg .s2{stroke:var(--s2);fill:var(--s2)} svg .line.s2{fill:none}
+svg .s3{stroke:var(--s3);fill:var(--s3)} svg .line.s3{fill:none}
+svg .s1-t{fill:var(--s1)} svg .s2-t{fill:var(--s2)} svg .s3-t{fill:var(--muted)}
+svg .bar{stroke:none}
+svg .node{fill:var(--paper);stroke:var(--line);stroke-width:1.2}
+svg .node.hi{fill:var(--accent-soft);stroke:var(--accent)}
+svg .nt{fill:var(--ink);font-size:13px;font-weight:600}
+svg .ns{fill:var(--ink2);font-size:11.5px}
+svg .arrow{stroke:var(--muted);stroke-width:1.4;fill:none;marker-end:url(#ah)}
+svg .ahead{fill:var(--muted)}
+nav.toc{columns:2;column-gap:28px;font-size:14.5px;margin:10px 0 0}
+nav.toc a{display:block;text-decoration:none;color:var(--ink2);padding:2px 0;break-inside:avoid}
+nav.toc a:hover{color:var(--accent)}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:600;vertical-align:1px}
+.small{font-size:13.5px;color:var(--ink2)}
+.foot{margin-top:64px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+ol.src{font-size:13.5px;color:var(--ink2)} ol.src li{margin:3px 0;word-break:break-word}
+@media (max-width:640px){
+  h1{font-size:30px} .sub{font-size:17px} h2{font-size:21px}
+  .grid3{grid-template-columns:1fr} nav.toc{columns:1}
+  main{padding-top:28px}
+}
+@media print{
+  body{background:#fff;color:#111;font-size:11pt}
+  main{max-width:none;padding:0}
+  h2{break-after:avoid;margin-top:28pt} h3{break-after:avoid}
+  .box,figure,.stat,pre{break-inside:avoid} .tbl{overflow:visible} table{font-size:9.5pt} td.num,th.num{white-space:normal}
+  a{color:#111;text-decoration:none}
+  @page{size:A4;margin:16mm 15mm}
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="cover">
+  <p class="kicker">Foreguild · Operating plan · Seer FAO contest (poidh Base #1531)</p>
+  <h1>Assign, don't auction.<br><span>Pay one agent, not a hundred.</span></h1>
+  <p class="sub">A revenue-first operating plan for Foreguild: an AI job board where forecasts pick who does each job before the work starts, and Seer markets on revenue decide how the guild grows and spends.</p>
+  <p class="meta">Version 1.2 · November 2026 · Built from public data, all of it cited. Numbers marked as assumptions are model inputs. Section 11 says what is tested, what is not, and which results would prove this plan wrong.</p>
+  <nav class="toc" aria-label="Contents">
+    <a href="#s1">1. Summary</a>
+    <a href="#s2">2. The problem, measured</a>
+    <a href="#s3">3. What Foreguild sells</a>
+    <a href="#s4">4. Revenue, cash and funding</a>
+    <a href="#s5">5. How a job flows (with a worked example)</a>
+    <a href="#s6">6. Futarchy: three loops</a>
+    <a href="#s7">7. The decision markets, specified</a>
+    <a href="#s8">8. Attacks: what they cost, what stops them</a>
+    <a href="#s9">9. Money, disputes, humans</a>
+    <a href="#s10">10. The first 90 days</a>
+    <a href="#s11">11. Risks, evidence status, falsifiers</a>
+    <a href="#s12">12. Sources and method</a>
+  </nav>
+</header>
+
+<h2 id="s1"><span class="n">1</span>Summary</h2>
+<p class="lead">Open bounties pay one winner and throw away everyone else's work. Once AI agents can enter, entries multiply and the prize money per entry shrinks. Foreguild sells the opposite: <strong>one job, one assigned agent, paid only when the work passes tests the buyer agreed to up front, with an optional refund guarantee.</strong> Forecasters compete to predict which agent will deliver, and they are paid only when they beat the guild's reputation model. Bigger choices (prices, new verticals, budgets) go to Seer conditional markets on revenue net of serving costs and of what each proposal spends.</p>
+
+<div class="grid3">
+  <div class="stat"><b>$5.0</b><span>median prize money per entry on 2026 Superteam bounties open to AI agents ($25.4 on human-only)</span></div>
+  <div class="stat"><b>115</b><span>median entries per agent-allowed bounty, against 36 on human-only</span></div>
+  <div class="stat"><b>~15%</b><span>blended guild revenue per $1 of work in the base case (15% fee, 12% on retainers, plus net assurance)</span></div>
+</div>
+
+<div class="tbl"><table>
+<tr><th>The brief asks</th><th>This plan's answer</th><th>Section</th></tr>
+<tr><td>Where tasks come from</td><td>Teams already paying for open bounties, converted with a "bounty-to-brief" offer; protocol retainers; AI buyers paying per brief over x402</td><td>3, 10</td></tr>
+<tr><td>How agents are assigned</td><td>A shortlist of bonded agents, then a forecast pool (a Seer market for briefs of $2k or more). Selection is mostly greedy, with 10% exploration so the scoring stays honest.</td><td>5</td></tr>
+<tr><td>How work is assessed</td><td>Acceptance tests fixed at funding, a verifier from a different model family, a 72-hour buyer window, and human audit sampling (25% for new agents, 5% once established)</td><td>5</td></tr>
+<tr><td>How spending is handled</td><td>Every proposal declares its spend; markets judge revenue <em>net</em> of serving costs and that spend; a Safe with Zodiac Roles enforces the envelopes; the reserve sits in a separate Safe the agents cannot touch</td><td>6, 9</td></tr>
+<tr><td>Disputes</td><td>Rework, then a guild panel, then Kleros, with the arbitration fee charged to the loser by the escrow contract</td><td>9</td></tr>
+<tr><td>Human intervention</td><td>Humans set values; markets set strategy; five named human roles, each with a stated limit</td><td>9</td></tr>
+<tr><td>How futarchy directs actions</td><td>Seer parent decision market plus two conditional scalar markets per proposal, with full parameters, a decision rule net of cost, and a measured path from advisory to binding</td><td>6–8</td></tr>
+</table></div>
+
+<p><strong>Base case:</strong> 26 paying buyers and $30k of monthly work (GMV) by month 3. Operating break-even in month 8. By month 12, 159 active buyers, $215k of monthly work and $32k of monthly Guild Net Revenue. Funding need: <strong>$75k in two tranches</strong>. The second $25k is released only if the pre-registered day-90 gate passes (section 10).</p>
+
+<h2 id="s2"><span class="n">2</span>The problem, measured</h2>
+<p>I pulled all 2,091 listings from Superteam Earn's public API, a large crypto bounty board, and kept the 485 bounties from 2026 that paid in stablecoins and received entries. Superteam labels each listing <code>HUMAN_ONLY</code> or <code>AGENT_ALLOWED</code>, which gives a rare public comparison of open competitions with and without AI agents.</p>
+
+<figure>
+<!--CHART:bounty-->
+<figcaption>Superteam Earn, 2026 stablecoin bounties with at least one entry. Human-only: n=450, $696,822 in prizes, 32,209 entries. Agent-allowed: n=34, $38,336, 5,487 entries. One $1M agent-allowed hackathon is excluded as an outlier. Pulled 8 Nov 2026.</figcaption>
+</figure>
+
+<ol>
+<li><strong>Open competition wastes most of the work.</strong> A median agent-allowed bounty draws 115 entries for a few prizes. Prize money per entry is a median of $5. This is not any one agent's expected pay, which depends on skill. But it does mean most of the work done goes unpaid, and the sponsor has to review all of it.</li>
+<li><strong>The buyers exist and pay.</strong> Sponsors paid about $727k into Superteam stablecoin bounties from 1 January to 8 November 2026, leaving out the $1M hackathon, or about $71k a month. They have budgets, recurring needs and crypto wallets. Foreguild does not need to create demand. It needs to give these buyers a better deal.</li>
+<li><strong>Automated payments are numerous but small.</strong> x402 has processed over 100M payments, but the total value is only tens of millions of dollars, and most single payments are under 10 cents. So the base case relies on human-led teams paying for outcomes. AI buyers are an extra channel.</li>
+</ol>
+<p>This contest shows the same pattern: more than 20 public plans appeared on GitHub within a week, competing for about $5.1k. Foreguild's offer for Seer's next brief is a shortlist of three agents, payment only for the one chosen (or for all three in a creative shortlist), and delivery in days.</p>
+<div class="box warn"><strong>Caveat.</strong> Agent-allowed bounties lean toward content tasks, which draw more entries anyway, so not all of the 3× gap is caused by letting agents in. The direction matches drdz23's study of 394 bounties on another board. The method and raw counts are in section 12.</div>
+
+<h2 id="s3"><span class="n">3</span>What Foreguild sells</h2>
+<p><strong>Assured Outcomes.</strong> A buyer describes a job. Foreguild turns it into a <em>brief</em>: a fixed price, a due date and written acceptance tests. One agent is assigned, and that agent is paid only when the work passes. If the buyer added assurance and the work fails, the buyer chooses a refund or a rework.</p>
+
+<h3>Three starting verticals, chosen because the work can be checked</h3>
+<div class="tbl"><table>
+<tr><th>Vertical</th><th>Example briefs</th><th class="num">Typical price</th><th>How acceptance is checked</th><th>Who buys</th></tr>
+<tr><td><strong>A. Protocol research and docs</strong></td><td>Feature explainer, docs page, competitor teardown, governance proposal analysis</td><td class="num">$150–600</td><td>Every citation resolves and supports its claim; on-chain numbers match a named source; checklist rubric</td><td>The protocols that post content bounties today</td></tr>
+<tr><td><strong>B. Code maintenance with tests</strong></td><td>Fix an issue, add tests, upgrade dependencies, write an SDK example</td><td class="num">$200–1,500</td><td>CI passes; the new tests fail before the change and pass after it; a maintainer merges</td><td>DAO and devtool repositories</td></tr>
+<tr><td><strong>C. Prediction-market operations</strong></td><td>Market question drafting, resolution-source research, rules checks, translation, Reality.eth evidence packs</td><td class="num">$1,000 a month for 40 items</td><td>Checklist against Seer's verified-markets policy; sources archived; second-model review</td><td>Seer, Kleros Foresight, market creators</td></tr>
+</table></div>
+<p>Subjective creative work comes later as <strong>Shortlist Contests</strong>. Three assigned agents each make one option, a Seer opportunity market plus the buyer picks one, and all three agents are paid. It's the same mechanism as Seer's own rebrand contest, but with about three paid entries instead of 100 or more unpaid ones.</p>
+<h3>Why buyers switch from bounties</h3>
+<ul>
+<li><strong>One checked result instead of 100 to read.</strong> Reviewing entries is the sponsor's hidden cost, and the guild does it before delivery.</li>
+<li><strong>Pay on acceptance, with a refund if assured.</strong> A bounty pays its winner even when no entry is good.</li>
+<li><strong>Days, not weeks</strong>, and the brief stays private when it needs to.</li>
+</ul>
+
+<h2 id="s4"><span class="n">4</span>Revenue, cash and funding</h2>
+<p>The base case has two revenue lines. Trading fees, a token and data sales are all counted at $0: Seer's total value locked across all markets was about $327k on 8 Nov 2026 (DefiLlama), so governance trading cannot fund an organisation.</p>
+<div class="tbl"><table>
+<tr><th>Line</th><th>Price</th><th>Modelled as</th></tr>
+<tr><td><strong>Outcome fee</strong></td><td>15% of the brief price on accepted work. 12% on prepaid monthly Guild Contracts. The first brief per buyer is fee-free.</td><td>30% of work on retainers from month 4; one fee-free $250 brief per new buyer</td></tr>
+<tr><td><strong>Assurance</strong></td><td>Optional, 3–10% of price, quoted from the forecast probability of failure (default 6%)</td><td>Bought on 60% of work; claims 2% of total work; net 1.6% of work</td></tr>
+<tr><td>Shortlist Contest setup · agent benchmark fee</td><td>$250 per contest · $49 per agent version</td><td>Not modelled (upside)</td></tr>
+</table></div>
+<p class="small">On comparisons: Upwork's 18.7% and Fiverr's 27.7% (FY2025 filings) are platform-wide revenue divided by gross volume, not per-job fees. They show the order of magnitude buyers already accept; they are not like-for-like prices.</p>
+
+<h3>Unit economics per brief</h3>
+<p>Inference uses Anthropic's published API prices (November 2026: Sonnet 5.5 at $2 input / $10 output per million tokens, Opus 5.5 at $4 / $20, Haiku 5.5 at $0.10 / $0.50). Token counts are estimates. Guild revenue uses the full 15% fee plus 1.6% net assurance.</p>
+<div class="tbl"><table>
+<tr><th></th><th class="num">A. Research</th><th class="num">B. Code</th><th class="num">C. Market ops (per item)</th></tr>
+<tr><td>Price paid by buyer</td><td class="num">$300</td><td class="num">$400</td><td class="num">$25</td></tr>
+<tr><td>Worker inference (estimate)</td><td class="num">~$1.5 <span class="small">0.5M in / 50k out, Sonnet</span></td><td class="num">~$9 <span class="small">2M / 60k, Opus</span></td><td class="num">~$0.01 <span class="small">50k / 5k, Haiku</span></td></tr>
+<tr><td>Operator keeps 85%, minus inference</td><td class="num">$253</td><td class="num">$331</td><td class="num">$21</td></tr>
+<tr><td>Guild revenue (16.6%)</td><td class="num">$49.8</td><td class="num">$66.4</td><td class="num">$4.2</td></tr>
+<tr><td>Guild variable cost (5.5%: verifier 1.0, audit and jury 1.5, forecaster cap 1.0, intake 0.5, rework 1.5)</td><td class="num">$16.5</td><td class="num">$22.0</td><td class="num">$1.4</td></tr>
+<tr><td><strong>Contribution per brief</strong></td><td class="num"><strong>$33.3</strong></td><td class="num"><strong>$44.4</strong></td><td class="num"><strong>$2.8</strong></td></tr>
+</table></div>
+<p>Inference costs less than 3% of the price in every vertical, so assigned work pays operators well enough to pull the best agents away from open bounties. Human audits cost about $30 each, which is why market-ops items are sold in monthly bundles of 40 rather than one at a time.</p>
+
+<h3>Growth is driven by buyers, not an assumed curve</h3>
+<p>Monthly work = active buyers × spend per buyer. Assumptions:</p>
+<ul>
+<li><strong>New outside buyers:</strong> 6, 10 and 14 in months 1–3. From month 4, the number of new buyers each month grows by 15% a month (base case), 5% (conservative) or 25% (upside).</li>
+<li><strong>Spend per buyer:</strong> $800 in a buyer's first month, then $1,600 a month (about six briefs).</li>
+<li><strong>Retention:</strong> 80% of active buyers buy again the next month.</li>
+<li><strong>Fixed costs:</strong> $10k a month: infrastructure $3k, market liquidity losses $2k, growth $5k. The liquidity budget is max($2k, 3% of GNR); 3% of GNR stays under $2k a month throughout year 1 in every scenario, so the model is unchanged.</li>
+<li><strong>One-off costs:</strong> $14k in month 1 (escrow audit $8k, legal entity $6k).</li>
+<li><strong>Locked in the business:</strong> an assurance reserve held at 3× expected monthly claims, and $3k of market seed liquidity locked from month 2.</li>
+</ul>
+<figure>
+<!--CHART:scen-->
+<figcaption>Monthly operating result (Guild Net Revenue minus variable and fixed costs), by scenario. The model is <code>model.py</code>, published with this plan, and every figure below recomputes from it.</figcaption>
+</figure>
+<div class="tbl"><table>
+<tr><th>Scenario</th><th class="num">Buyers M12</th><th class="num">Work/mo M12</th><th class="num">GNR/mo M12</th><th class="num">GNR year 1</th><th class="num">Break-even</th><th class="num">Peak need</th></tr>
+<tr><td>Conservative</td><td class="num">87</td><td class="num">$121k</td><td class="num">$18.3k</td><td class="num">$123k</td><td class="num">Month 10</td><td class="num">$68k</td></tr>
+<tr><td><strong>Base</strong></td><td class="num"><strong>159</strong></td><td class="num"><strong>$215k</strong></td><td class="num"><strong>$31.9k</strong></td><td class="num"><strong>$169k</strong></td><td class="num"><strong>Month 8</strong></td><td class="num"><strong>$63k</strong></td></tr>
+<tr><td>Upside</td><td class="num">288</td><td class="num">$377k</td><td class="num">$55.3k</td><td class="num">$237k</td><td class="num">Month 7</td><td class="num">$61k</td></tr>
+</table></div>
+<div class="box accent"><p style="margin:0"><strong>Funding: $75k, in two tranches.</strong> Tranche 1 ($50k) covers the one-off costs and the first three months; base-case cumulative cash is −$44k at month 3, after the reserve and liquidity lock-up. The tranche also keeps $5k untouched for wind-down (finishing open briefs, refunds and disputes). Tranche 2 ($25k) is released only if the day-90 gate passes, and with tranche 1 covers the peak need even in the conservative case ($68k) plus the wind-down holdback. Likely funders are Seer and the Gnosis/Kleros ecosystem, which get Foreguild as a showcase and a recurring buyer of market operations. If the gate fails, tranche 2 is never drawn.</p></div>
+
+<h2 id="s5"><span class="n">5</span>How a job flows</h2>
+<figure>
+<svg viewBox="0 0 820 250" role="img" aria-label="Brief lifecycle from intake to reputation update">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahead"/></marker></defs>
+<rect x="4" y="20" width="148" height="64" rx="8" class="node"/><text x="78" y="46" class="nt" text-anchor="middle">1 Intake</text><text x="78" y="66" class="ns" text-anchor="middle">brief + tests + due date</text>
+<rect x="172" y="20" width="148" height="64" rx="8" class="node"/><text x="246" y="46" class="nt" text-anchor="middle">2 Price + escrow</text><text x="246" y="66" class="ns" text-anchor="middle">buyer funds USDC</text>
+<rect x="340" y="20" width="148" height="64" rx="8" class="node hi"/><text x="414" y="46" class="nt" text-anchor="middle">3 Assignment</text><text x="414" y="66" class="ns" text-anchor="middle">forecasts vs reputation</text>
+<rect x="508" y="20" width="148" height="64" rx="8" class="node"/><text x="582" y="46" class="nt" text-anchor="middle">4 Work</text><text x="582" y="66" class="ns" text-anchor="middle">one bonded agent</text>
+<rect x="676" y="20" width="140" height="64" rx="8" class="node"/><text x="746" y="46" class="nt" text-anchor="middle">5 Verify</text><text x="746" y="66" class="ns" text-anchor="middle">other model family</text>
+<rect x="676" y="160" width="140" height="64" rx="8" class="node"/><text x="746" y="186" class="nt" text-anchor="middle">6 Buyer window</text><text x="746" y="206" class="ns" text-anchor="middle">72h, silence = accept</text>
+<rect x="508" y="160" width="148" height="64" rx="8" class="node"/><text x="582" y="186" class="nt" text-anchor="middle">7 Release</text><text x="582" y="206" class="ns" text-anchor="middle">85% agent (part held)</text>
+<rect x="340" y="160" width="148" height="64" rx="8" class="node hi"/><text x="414" y="186" class="nt" text-anchor="middle">8 Audit sample</text><text x="414" y="206" class="ns" text-anchor="middle">25% new · 5% proven</text>
+<rect x="172" y="160" width="148" height="64" rx="8" class="node"/><text x="246" y="186" class="nt" text-anchor="middle">9 Score + reputation</text><text x="246" y="206" class="ns" text-anchor="middle">forecasters, agent</text>
+<rect x="4" y="160" width="148" height="64" rx="8" class="node"/><text x="78" y="186" class="nt" text-anchor="middle">Dispute ladder</text><text x="78" y="206" class="ns" text-anchor="middle">rework → panel → Kleros</text>
+<path d="M152 52 H170" class="arrow"/><path d="M320 52 H338" class="arrow"/><path d="M488 52 H506" class="arrow"/><path d="M656 52 H674" class="arrow"/>
+<path d="M746 84 V158" class="arrow"/><path d="M676 192 H658" class="arrow"/><path d="M508 192 H490" class="arrow"/><path d="M340 192 H322" class="arrow"/>
+<path d="M700 224 C 600 246, 200 246, 120 226" class="arrow"/>
+</svg>
+<figcaption>Highlighted steps are where forecasts or sampled human judgment set the outcome. The other steps are automated agent jobs with fixed budgets.</figcaption>
+</figure>
+
+<h3>Assignment (step 3): forecasts that must beat reputation</h3>
+<p>Seer's documentation describes AI markets: several candidates are proposed, forecasters trade on which will succeed, the best is used and the rest are cancelled. Foreguild uses the same idea to assign work, with three safeguards so the forecasts are honest and never cost more than they are worth.</p>
+<ol>
+<li><strong>Shortlist.</strong> The router picks up to three bonded agents. The guild's reputation model gives each one a <em>baseline</em> chance of being accepted on first delivery, based on audited history in that vertical.</li>
+<li><strong>Forecasts.</strong> Forecasters (agents or humans, each with a small bond) give P(accepted | agent i). The operator of a shortlisted agent may not forecast that brief.</li>
+<li><strong>Selection with exploration.</strong> 90% of the time the job goes to the agent with the best combined forecast, adjusted for delivery time. 10% of the time it goes to a random shortlisted agent, with known probabilities π<sub>i</sub>. A decision rule that never explores lets forecasters steer which agent gets scored, so a scoring rule cannot be proper without it (Chen &amp; Kash, "Decision markets with good incentives"). Exploration also gives new agents a path in.</li>
+<li><strong>Scoring.</strong> Only the assigned agent j's outcome is ever observed. A forecaster's score is (1/π<sub>j</sub>) × [log score of their forecast − log score of the reputation baseline]. Positive scores share a pool capped at 1% of the price. Negative scores are deducted from the forecaster's bond, up to twice what they could have won. Any unspent part of the pool stays with the guild.</li>
+<li><strong>Large briefs</strong> ($2,000 and up) get a real Seer market: a categorical parent for which agent is assigned, and one conditional child per agent for "accepted on first delivery?". The guild adds 1% of the price as liquidity. Only the assigned agent's child resolves.</li>
+</ol>
+<p><strong>What this costs if forecasts add nothing:</strong> at most 1% of the price, and in practice close to zero, because only improvements over the baseline are paid. With no forecasts, routing falls back to the reputation model. Payment is linear in the log-score improvement while the cap does not bind, which keeps truthful reporting optimal in the normal range. The cap and the bond-limited losses weaken that guarantee at the extremes, so caps are set well above typical scores, and whether forecasts beat the baseline is tested in public (falsifier 3). Forecasts should help most where reputation is thin: new agents, new verticals, unusual briefs.</p>
+
+<h3>Assessment and cheating incentives (steps 5–8)</h3>
+<ul>
+<li><strong>Acceptance tests are fixed when the buyer funds escrow.</strong> A rejection must name a failed test.</li>
+<li><strong>The verifier comes from a different model family than the worker</strong>, which cuts down on errors they share. It doesn't remove them, which is why humans also audit.</li>
+<li><strong>Audit sampling (Deep Funding-style "distilled human judgment").</strong> Human reviewers score a random sample of accepted jobs, plus every job where the verifier and the buyer disagreed. A verifiable random seed picks the sample. The sample rate depends on the agent's tier.</li>
+<li><strong>Portable track record.</strong> Audited results go to the agent's ERC-8004 reputation registry. This record is technical, not legal: the operator also signs an agreement at registration and is the legal party.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>Agent tier</th><th class="num">Audit rate</th><th>Held back</th><th>If an audit fails</th><th class="num">Expected penalty for a bad delivery</th></tr>
+<tr><td>New (first 20 accepted jobs)</td><td class="num">25%</td><td>20% of each payout held for 30 days</td><td>Full payout clawed back from holdback and bond; demoted</td><td class="num">≈ 0.25 × 0.85P ≈ 0.21P, plus lost holdback and access</td></tr>
+<tr><td>Proven (20+ jobs, ≥ 90% audit pass)</td><td class="num">5%</td><td>10% held for 14 days</td><td>Clawback, bond slashed by 2× fee, back to New</td><td class="num">≈ 0.05 × (0.85P + 0.3P) ≈ 0.06P, plus losing tier status worth future margin</td></tr>
+</table></div>
+<p class="small">For a proven agent, one bad job carries a small direct penalty. The main deterrent is losing a tier that took 20+ jobs to earn. A proven agent earning $250 per job across a pipeline of briefs loses far more from demotion than any single bad delivery can gain. Agents whose verifier and buyer disagree are sampled at 100%.</p>
+
+<h3>One brief, end to end (illustrative)</h3>
+<div class="box">
+<p><strong>Buyer:</strong> a Solana protocol that last quarter ran a $500 "write a thread about our feature" bounty. Bounties like that drew 145–587 entries on Superteam in 2026. <strong>Brief:</strong> a technical explainer (an X thread and a docs page) on one feature. Price $300, due in 72 hours. Acceptance tests:</p>
+<ol style="margin-bottom:10px">
+<li>Eight factual claims, each linked to docs or a commit.</li>
+<li>Every number matches a named on-chain dashboard on the delivery date.</li>
+<li>No claims about price or returns.</li>
+<li>Required tags and a disclosure that the content is paid.</li>
+</ol>
+<p><strong>Assignment:</strong> three shortlisted agents with reputation baselines of 0.80, 0.80 and 0.70. The forecast pool says 0.86, 0.74 and 0.71, because one forecaster knows the second agent's operator has no Solana docs experience. Agent 1 is assigned (greedy draw). <strong>Delivery:</strong> 41 hours. The verifier (a different model family) confirms all eight citations and catches one stale TVL figure, which is fixed before delivery. The buyer accepts in 20 hours. Not sampled for audit (the agent is proven).</p>
+<p><strong>Ledger:</strong> the buyer pays $300 plus $18 for assurance. The agent receives $255 ($25.50 held back for 14 days). The guild keeps a $45 fee plus the $18 premium; its costs are verifier ≈ $0.5, intake ≈ $0.3 and forecaster pool $1.10 (of a $3 cap; paid because the forecast beat the baseline on the observed agent).</p>
+<p style="margin:0"><strong>Against the bounty:</strong> one paid entry instead of hundreds, delivery in 2.6 days instead of a week or more, and nothing for the sponsor to sort. This is a constructed example with plausible figures, not a real transaction. The first real ones will be published on the public dashboard (section 10).</p>
+</div>
+
+<h3>The guild's own agents</h3>
+<div class="tbl"><table>
+<tr><th>Role</th><th>Does</th><th>Cannot</th></tr>
+<tr><td>Intake</td><td>Turns requests into briefs with tests and due dates; refuses prohibited work</td><td>Set prices, or accept work outside the constitution</td></tr>
+<tr><td>Pricer</td><td>Quotes the price and the assurance premium from forecasts and price history</td><td>Quote outside the fee band (10–25%)</td></tr>
+<tr><td>Router</td><td>Builds shortlists and runs forecast pools and exploration draws</td><td>Override the draw, or shortlist an agent under a slash</td></tr>
+<tr><td>Verifier pool</td><td>Checks deliveries against the tests</td><td>Verify work from its own model family or operator</td></tr>
+<tr><td>Auditor-sampler</td><td>Draws samples from a verifiable random seed; routes them to human reviewers</td><td>Choose which jobs get sampled</td></tr>
+<tr><td>Treasurer</td><td>Pays out within approved envelopes</td><td>Exceed $2k per transaction or the epoch cap; it holds no role on the reserve Safe</td></tr>
+<tr><td>Growth</td><td>Finds sponsors and runs bounty-to-brief outreach</td><td>Spend outside its envelope, or send mass unsolicited messages</td></tr>
+<tr><td>Proposer and clerk</td><td>Drafts proposals; posts bonded Reality.eth answers; prepares Kleros evidence</td><td>Trade in markets it administers</td></tr>
+</table></div>
+
+<h2 id="s6"><span class="n">6</span>Futarchy: three loops</h2>
+<p>Hanson's rule is "vote on values, bet on beliefs." Every decision goes to the cheapest loop that can make it well.</p>
+<div class="tbl"><table>
+<tr><th>Loop</th><th>Decides</th><th>Mechanism</th><th>Frequency</th></tr>
+<tr><td><strong>1. Values</strong> (humans)</td><td>Metric definition, fee band, prohibited work, reserve rules, guardian powers</td><td>Council supermajority plus a 14-day delay; anyone can challenge at Kleros</td><td>Rare</td></tr>
+<tr><td><strong>2. Strategy</strong> (futarchy)</td><td>Pricing, launching a vertical, envelopes over $5k, assurance policy, the day-90 decision</td><td>Seer conditional scalar markets on net revenue (section 7)</td><td>2–4 a month</td></tr>
+<tr><td><strong>3. Assignment</strong> (forecasts)</td><td>Who gets each brief; assurance premiums</td><td>Forecast pools scored against the reputation baseline; a Seer market for briefs of $2k or more</td><td>Every brief</td></tr>
+</table></div>
+
+<h3>The metric: Guild Net Revenue</h3>
+<div class="box accent">
+<p><strong>GNR(W)</strong> = outcome fees plus assurance premiums on briefs whose <em>due date</em> falls in window W, minus fees and premiums refunded on those briefs, minus their assurance claims. All figures are taken as of a fixed cutoff, the question's opening time. Claims still open at the cutoff count at the published expected claim rate. Later corrections only change the dashboard, never a settled market.</p><p><strong>GNC(W)</strong>, the decision metric, = GNR(W) − 5.5% × GMV(W) − S. The 5.5% is the published variable-cost rate; S is the proposal's declared incremental spend (0 in the NO branch). The market seed is spent whichever branch wins, so it is not part of S.</p>
+<ul>
+<li><strong>Due date, not acceptance time.</strong> The due date is fixed when the buyer funds escrow, so neither buyers nor agents can move revenue across a window edge by delaying acceptance.</li>
+<li><strong>"Refunds"</strong> means fees and premiums returned. Escrow principal returned to a buyer was never revenue.</li>
+<li><strong>Exclusions:</strong> related parties (agent operators, guild signers, market liquidity addresses, and wallets within two funding hops of them; anyone can challenge the list at Kleros). Then each buyer cluster is capped: its counted contribution = min(cᵢ, 0.15 × Σ cⱼ), where the sum is the uncapped total after exclusions. A cluster with history also has anything above max(2 × its trailing 90-day monthly average, $1,500) excluded. New clusters are limited only by the 15% cap.</li><li>The model in section 4 shows economic revenue. The decision metric applies these exclusions on top, so it is the same or lower.</li>
+<li><strong>Retainers</strong> count pro rata by day of service.</li>
+</ul>
+<p class="small" style="margin:0">The definition is pinned by IPFS hash in every market question. A reference script is pinned by commit hash. If the two disagree, the written definition wins.</p>
+</div>
+
+<h3>Decisions are judged net of their own cost</h3>
+<p>Revenue alone would approve "spend $4,000 to gain $600." So the markets forecast <strong>GNC</strong>: revenue minus the variable cost of serving it, minus the proposal's declared spend S (enforced as its envelope). The guild still optimises revenue, as Seer asked, but it cannot buy revenue at a loss.</p>
+
+<h3>Which decisions get a market</h3>
+<p>A strategy market costs about $1,000 in seed liquidity, about half of which is lost to informed traders. A proposal goes to a market only if its plausible effect is at least five times that. Smaller decisions are made by operating agents inside their envelopes and logged. Anyone can <strong>escalate</strong> one by posting a $250 bond. It is refunded if the market then disagrees with the agents by more than the decision threshold.</p>
+
+<h3>What Optimism's Futarchy v1 taught</h3>
+<p>Optimism's experiment picked top performers at least as well as its Grants Council. But it overestimated TVL growth by roughly $200M, on play money and with thousands of bot sign-ups. Foreguild takes three rules from this:</p>
+<ul>
+<li>Decide on the difference between the two branches, never on the predicted level.</li>
+<li>Use real money only.</li>
+<li>Earn binding power by evidence (section 8), not by declaring it.</li>
+</ul>
+
+<h2 id="s7"><span class="n">7</span>The decision markets, specified</h2>
+<figure>
+<svg viewBox="0 0 820 220" role="img" aria-label="Parent decision market with two conditional scalar child markets">
+<rect x="270" y="10" width="280" height="62" rx="8" class="node hi"/><text x="410" y="36" class="nt" text-anchor="middle">Parent · categorical · root</text><text x="410" y="56" class="ns" text-anchor="middle">"Was FP-k executed in its window?"  Yes | No</text>
+<rect x="30" y="136" width="330" height="70" rx="8" class="node"/><text x="195" y="162" class="nt" text-anchor="middle">Child YES · scalar · parentOutcome 0</text><text x="195" y="184" class="ns" text-anchor="middle">GNC(W) in [0, U] · LOWER | HIGHER</text>
+<rect x="460" y="136" width="330" height="70" rx="8" class="node"/><text x="625" y="162" class="nt" text-anchor="middle">Child NO · scalar · parentOutcome 1</text><text x="625" y="184" class="ns" text-anchor="middle">GNC(W) with S = 0 · same bounds</text>
+<path d="M340 72 L210 134" class="arrow"/><path d="M480 72 L610 134" class="arrow"/>
+<text x="410" y="112" class="ns" text-anchor="middle">each child's collateral = that parent outcome's ERC20</text>
+</svg>
+<figcaption>If the parent resolves the other way, the child's tokens and everything nested under it redeem for zero (Seer docs). A trader who holds equal amounts of both parent outcomes is hedged on the decision itself, so their profit or loss comes only from their own trades in the children. Seer also adds an INVALID outcome to every market automatically.</figcaption>
+</figure>
+
+<p>All markets run on Gnosis, collateral is sDAI, and they are created through <code>MarketFactory</code>. The parent market:</p>
+<pre>createCategoricalMarket(CreateMarketParams{
+  marketName:    "Did the Foreguild Safe gnosis:0x… execute the batch of proposal FP-k (ipfs://…)
+                  between {T_exec} and {T_exec+7d} UTC?",
+  outcomes:      ["Yes","No"],  tokenNames: ["FPk_YES","FPk_NO"],
+  questionStart: "", questionEnd: "", outcomeType: "",
+  parentMarket:  address(0), parentOutcome: 0,
+  category: "foreguild", lang: "en_US",
+  lowerBound: 0, upperBound: 0,
+  minBond:    10e18,            // 10 xDAI: Reality.eth bonds on Gnosis are in xDAI, not the sDAI collateral
+  openingTime: T_exec + 7 days })</pre>
+<p>Two children follow, each with <code>createScalarMarket</code>: same factory, <code>parentMarket</code> = the parent, <code>parentOutcome</code> = 0 (YES) or 1 (NO), <code>outcomes</code> ["Lower","Higher"], <code>tokenNames</code> ["FPk_Y_LO","FPk_Y_HI"] / ["FPk_N_LO","FPk_N_HI"]. The question text is:</p>
+<pre>"What is Foreguild GNC(W) in whole USD, per definition v1.1 (ipfs://…), for W = briefs due from
+ {T_exec+7d} to {T_exec+7d+W_days} UTC, as of this question's opening time? Negative values answer 0."
+In USD:  L = 0,  U = max(2·B, 10,000)          then on-chain: lowerBound = 0, upperBound = U · 1e18
+minBond = 50e18 (50 xDAI),   openingTime = T_exec + 7d + W_days + 1d</pre>
+<ul>
+<li><strong>B</strong> is the trailing GNC over a window of the same length. The $10k floor on U keeps the range usable for a young guild: month-3 GNR in the base case is about $4.5k, well inside [0, 10k].</li>
+<li><strong>W</strong> is 30 days by default and 90 days for pricing proposals.</li>
+<li>Values outside [L, U] are clipped by the scalar payout. So prices estimate the expected <em>clipped</em> value, and the bounds are set wide enough that clipping is unlikely.</li>
+<li>An INVALID answer pays the INVALID token, and HIGHER and LOWER pay 0. So the implied value is conditioned on a valid answer: <code>value = U · p_HI / (p_HI + p_LO)</code>. The guild records an INVALID result as "no signal".</li>
+</ul>
+
+<h3>Decision rule and timeline</h3>
+<pre>Day 0        proposal posted with S, W and its envelope; markets created; $500 seed per child pool
+Day 1–6      trading. TWAP = time-weighted mid price of HIGHER,
+             hours 24–96 of trading, sampled each block
+             Implied value_b = U · TWAP(p_HI) / (TWAP(p_HI) + TWAP(p_LO))   in branch b
+Day 6 close  PASS  if  value_yes − value_no ≥ max(2% · B, $300)
+                   and each pool held ≥ $400 depth through the TWAP window
+                   and no constitutional challenge is open
+             otherwise keep the status quo
+Day 6        clerk asks the Zodiac Reality Module "Did FP-k pass rule v1.1 at close?" with a bond
+             → answer finalises after Reality timeout (48h) if unchallenged → module cooldown (24h)
+             → Safe executes the batch (answer expiry: 7 days)
+If disputed  Kleros decides (Seer docs: typically up to 14.5 days, +11 days per appeal). The status quo holds
+             until then. If the answer lands after the 7-day execution window, the module's expiry blocks
+             execution: the proposal is void and the parent resolves No, so policy and market always match.
+Later        parent resolves after its opening time; the executed branch's child resolves from GNR;
+             the other child redeems to zero.</pre>
+<p>Within its branch, each child's price is already the forecast conditional on that branch, because it is quoted in that branch's parent token. So the two branches can be compared directly with no cross-branch conversion.</p>
+<h3>Who trades</h3>
+<ul>
+<li><strong>Agent operators</strong>, who see demand and quality first.</li>
+<li><strong>Forecasters</strong> already scored in assignment pools.</li>
+<li><strong>Seer market makers</strong>, paid by the seed liquidity.</li>
+</ul>
+<p>The Treasurer and the clerk are banned from trading. The guild only seeds.</p>
+
+<h2 id="s8"><span class="n">8</span>Attacks: what they cost, what stops them</h2>
+<p>This section does not claim the markets are impossible to manipulate. With Seer's current depth they can be manipulated, and so the plan ties how much any market is allowed to decide to how expensive it has been <em>measured</em> to move.</p>
+
+<h3>The full attacker equation</h3>
+<pre>Attacker profit = trading P&amp;L on every position (parent, both children, before and after the close)
+                + external benefit E if the decision goes their way (e.g. their agent wins the new vertical's budget)
+                − cost to move the TWAP past the threshold for 72h against arbitrageurs
+                − cost of any fake revenue</pre>
+<p><strong>Part 1: fake revenue is expensive, but not the main risk.</strong> To raise GNR by Δ through fake briefs between their own wallets, the attacker pays Δ in fees. A brief of Δ/0.15 yields a fee of Δ, and they get back the 85% worker share through their own agent, so the net cost is Δ. Each HIGHER token gains Δ/U. So within one branch, after the decision is fixed, fake revenue only pays if the attacker holds more than U <em>tokens</em> net (U in USD). Faking revenue also has to get past the related-party exclusions, the 15% cluster cap and tier-0 audits at 25%. But this bound says nothing about the bigger risk: an attacker who wants a decision for its external benefit E.</p>
+<p><strong>Part 2: decision manipulation is limited by depth, so authority is too.</strong> One trade that moves a full-range constant-product pool of value V from price p by δ costs roughly V·δ/(4p). At V = $1,000, p = 0.5 and δ = 0.01 (the 2%·B threshold when U = 2B), that is about <strong>$5</strong>. Holding the price there for 72 hours against arbitrage costs more, but how much more is unknown until measured. So:</p>
+<div class="box warn">
+<ul style="margin:0">
+<li><strong>Months 1–6: advisory, comply-or-explain.</strong> The guild follows the market result unless the council publishes reasons within 48 hours. Every override is logged and later scored against the result that actually happened.</li>
+<li><strong>Red-team bounty.</strong> Each advisory market posts a prize P for anyone who flips its decision against the honest consensus and shows how. A claimed prize shows the market can be moved for about P or less. A prize left unclaimed through repeated rounds is a working signal that moving it costs more than P.</li>
+<li><strong>Binding cap.</strong> After six resolved markets, a market binds only proposals whose S is no larger than the largest unclaimed prize at that depth. Proposals whose benefit goes to identifiable parties (a named operator, a partner) stay comply-or-explain at any size, because a market cannot see their private benefit E.</li>
+<li><strong>Growing depth:</strong> 3% of GNR is routed to market liquidity, Seer is asked to co-subsidise, and same-epoch proposals are pooled into one multi-scalar market so liquidity concentrates.</li>
+</ul>
+</div>
+<p><strong>Timing games.</strong> Revenue is counted by the due date fixed at funding, so delaying acceptance moves nothing. A buyer could still create briefs with due dates chosen to land in a window. The defences are the per-cluster cap and one more rule: any cluster whose in-window revenue exceeds twice its trailing average has the excess excluded. The plan does not claim a numeric bound for colluding buyers. It caps them and publishes the exclusions so anyone can check.</p>
+
+<div class="tbl"><table>
+<tr><th>Attack</th><th>Defence</th></tr>
+<tr><td>Big last-minute trade</td><td>72-hour TWAP starting at hour 24; pool depth floor; status quo when the signal is thin</td></tr>
+<tr><td>Wrong revenue answer at Reality.eth</td><td>Fixed definition and pinned script; each new answer must double the bond; Kleros backstop. An honest challenger is paid for correcting it.</td></tr>
+<tr><td>Forecasters steering who gets scored</td><td>10% exploration with importance weighting; operators can't forecast their own agents; scores measured against the reputation baseline</td></tr>
+<tr><td>Fake agent identities</td><td>A bond per agent; new tiers audited at 25% with holdback; a benchmark fee per version</td></tr>
+<tr><td>Sabotage in the executed branch</td><td>Reassign on SLA breach and slash the bond; cluster caps limit how much any one party affects the metric</td></tr>
+<tr><td>Proposal spam</td><td>$100 refundable deposit, kept if the proposal draws no trading; at most 4 live markets</td></tr>
+</table></div>
+
+<h2 id="s9"><span class="n">9</span>Money, disputes, humans</h2>
+<h3>Treasury</h3>
+<ul>
+<li><strong>Operating Safe:</strong> the Treasurer agent acts through Zodiac Roles, limited to a $2k per-transaction cap, a per-epoch allowance and allow-listed payees.</li>
+<li><strong>Reserve Safe:</strong> holds the assurance reserve. No agent has any role on it. Money moves only to the claims contract, or under a passed strategy proposal. This protects the reserve floor through separate custody, not through a rule an agent could misread.</li>
+<li><strong>Buyer escrow</strong> takes USDC on Base and Gnosis. Idle operating funds sit in sDAI.</li>
+<li>Every payment links publicly to the job or proposal behind it.</li>
+</ul>
+<h3>Dispute ladder</h3>
+<ol>
+<li><strong>Rework:</strong> one free revision against the failed test, within 48 hours.</li>
+<li><strong>Guild panel:</strong> three verifiers from different model families plus one sampled human reviewer, within 48 hours. Final for briefs under $500 unless both sides deposit to escalate.</li>
+<li><strong>Kleros:</strong> for briefs of $500 or more. Both sides deposit the fee into the escrow contract, which refunds the winner and pays the arbitration from the loser's deposit.</li>
+</ol>
+<h3>Humans, with limits</h3>
+<div class="tbl"><table>
+<tr><th>Role</th><th>Power</th><th>Limit</th></tr>
+<tr><td>Constitutional council (5; Seer may appoint 2 in year 1)</td><td>Amend values; publish overrides while markets are advisory</td><td>4 of 5 votes plus a 14-day delay for amendments; every override is published and later scored against the outcome</td></tr>
+<tr><td>Guardian multisig (3 of 5)</td><td>72-hour emergency pause</td><td>Cannot spend; the pause lapses unless a market ratifies it</td></tr>
+<tr><td>Audit reviewers</td><td>Score sampled jobs</td><td>Assigned at random; scored against each other</td></tr>
+<tr><td>Kleros jurors</td><td>Escalated disputes and contested answers</td><td>Kleros procedure</td></tr>
+<tr><td>Legal operator</td><td>Entity, contracts, tax filings</td><td>Paid per service; no say over operations</td></tr>
+</table></div>
+<h3>Compliance (to confirm with counsel)</h3>
+<ul>
+<li><strong>Escrow:</strong> a non-custodial contract with fixed release rules; fiat only through licensed providers.</li>
+<li><strong>Sanctions:</strong> wallets screened against an on-chain sanctions oracle before escrow and before every payout.</li>
+<li><strong>Who is the legal party:</strong> the operator, under the agreement signed at registration. ERC-8004 identity alone creates no legal responsibility.</li>
+<li><strong>Tax:</strong> payouts tracked per operator for reporting (e.g. EU DAC8).</li>
+<li><strong>Work ownership:</strong> intellectual property in the work passes to the buyer on payment; operators must declare third-party licenses.</li>
+<li><strong>Prohibited work:</strong> illegal content, malware, engagement farming and KYC evasion.</li>
+</ul>
+
+<h2 id="s10"><span class="n">10</span>The first 90 days</h2>
+<div class="tbl"><table>
+<tr><th>Weeks</th><th>Build and sell</th><th>Gate</th></tr>
+<tr><td>1–2</td><td>
+<ul style="margin:0">
+<li>Audit the escrow contract (accept, reject, timeout, assurance, dispute deposits).</li>
+<li>Build the intake and verifier agents, and the GNR indexer with a public dashboard.</li>
+<li>Write constitution v1.1.</li>
+<li>Bond 10 operators across three verticals.</li>
+</ul></td><td>Audit passed; 10 operators bonded</td></tr>
+<tr><td>3–6</td><td>
+<ul style="margin:0">
+<li><strong>Bounty-to-brief:</strong> the Growth agent watches agent-allowed bounties on Superteam and poidh. House agents enter a few to prove quality, with a $1k compute cap.</li>
+<li>Each sponsor gets the offer: "your next brief, one agent, 72 hours, pay only on acceptance, first one at 0% fee."</li>
+<li>Offer market-ops bundles to Seer, Kleros and Gnosis teams. These are prospects, not commitments.</li>
+</ul></td><td>Day 45: ≥ 8 outside paying buyers and ≥ 40 accepted briefs</td></tr>
+<tr><td>7–10</td><td>
+<p style="margin:0 0 4px">First advisory strategy markets, each with a red-team bounty:</p>
+<ul style="margin:0">
+<li><strong>FP-1:</strong> make assurance opt-out for briefs of $100 or more (W = 30).</li>
+<li><strong>FP-2:</strong> launch vertical B with a $4k envelope (W = 30, S = $4k).</li>
+<li><strong>FP-3:</strong> 12% fee for buyers with 3+ accepted briefs (W = 90).</li>
+</ul></td><td>≥ $400 depth per branch</td></tr>
+<tr><td>11–13</td><td>Convert the top 5 buyers to monthly Guild Contracts; publish the first audit-agreement, forecast-calibration and red-team report</td><td>Day 90</td></tr>
+</table></div>
+<div class="box ok">
+<p style="margin-bottom:6px"><strong>Day-90 gate (pre-registered). Release tranche 2 only if all of these hold:</strong></p>
+<ul style="margin-bottom:6px">
+<li>monthly work ≥ $25k;</li>
+<li>first-delivery acceptance ≥ 80%;</li>
+<li>60-day repeat-buyer rate ≥ 30%;</li>
+<li>verifier agrees with human audit ≥ 85% of the time;</li>
+<li>assurance claims ≤ 3% of GMV.</li>
+</ul>
+<p style="margin:0">If any test fails, an advisory market compares "narrow to the best vertical", "reprice" and "status quo", and the council follows it or explains why not. If monthly work is under $10k, the guild winds down and returns what is left of tranche 1. FP-1 and FP-2 resolve around day 85–95 and FP-3 around day 150. So the six-market binding test falls in months 5–7, not at day 90.</p>
+</div>
+<p><strong>Public dashboard, daily:</strong></p>
+<ul>
+<li>monthly work, GNR and GNC;</li>
+<li>acceptance and time to accept;</li>
+<li>repeat buyers;</li>
+<li>disputes and their outcomes;</li>
+<li>audit agreement and forecaster skill over the baseline;</li>
+<li>claims;</li>
+<li>market depth, TWAP gaps and red-team costs;</li>
+<li>spend against envelopes.</li>
+</ul>
+
+<h2 id="s11"><span class="n">11</span>Risks, evidence status, falsifiers</h2>
+<div class="tbl"><table>
+<tr><th>Claim</th><th>Status</th></tr>
+<tr><td>Bounty data, take rates, Seer TVL, API prices, Seer mechanics</td><td>Checked against sources on 8 Nov 2026 (section 12)</td></tr>
+<tr><td>Model arithmetic</td><td>Tested: every table recomputes from <code>model.py</code></td></tr>
+<tr><td>Buyer demand, retention and spend per buyer</td><td><strong>Unverified</strong> assumptions; the day-45 and day-90 gates test them</td></tr>
+<tr><td>Manipulation cost K at Seer's depth</td><td><strong>Unmeasured</strong>; red-team bounties measure it, and binding power waits for that</td></tr>
+<tr><td>Escrow, holdback and Reality-module enforcement</td><td>Standard parts (Zodiac Reality and Roles, Kleros); the guild's own contract is <strong>unaudited until weeks 1–2</strong></td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>Risk</th><th>Early sign</th><th>Response</th></tr>
+<tr><td>Sponsors want open competition for reach</td><td>&lt; 8 buyers by day 45</td><td>Shortlist Contests keep the public element; focus on market ops and code</td></tr>
+<tr><td>Verifiers miss bad work</td><td>Audit agreement &lt; 85%</td><td>Raise sampling to 15%; two verifiers for vertical A</td></tr>
+<tr><td>Markets too thin</td><td>Depth &lt; $400, or a low red-team K</td><td>Stay comply-or-explain longer; pool proposals; co-subsidy</td></tr>
+<tr><td>Assurance losses</td><td>Claims &gt; 3% of GMV</td><td>Reprice from forecasts; raise bonds; drop risky brief types</td></tr>
+<tr><td>Prediction-market access restricted</td><td>Seer limits access</td><td>Forecast pools need no market; strategy falls back to council plus published forecasts</td></tr>
+</table></div>
+<div class="box"><p style="margin:0"><strong>This plan is wrong if:</strong></p>
+<ol style="margin-bottom:0">
+<li>assigned briefs are accepted less than 80% of the time on first delivery;</li>
+<li>buyers stop paying once the free first brief is used;</li>
+<li>forecasters fail to beat the reputation baseline in vertical A or B after 200 briefs;</li>
+<li>red-team prizes of $500 keep getting claimed after six months of depth-building.</li>
+</ol>
+<p style="margin:8px 0 0">Each is measured in public.</p></div>
+
+<h2 id="s12"><span class="n">12</span>Sources and method</h2>
+<p class="small"><strong>Bounty data:</strong> <code>GET superteam.fun/api/listings?take=1000&amp;status=all</code>, 8 Nov 2026, 2,091 listings. Filters: type = bounty, token in {USDC, USDT, USDG}, reward &gt; 0, at least one entry, deadline in 2026. The median prize per entry is computed bounty by bounty, then the median is taken. The excluded outlier is "Ranger Build-A-Bear Hackathon" ($1M). <strong>Model:</strong> <code>model.py</code>. <strong>Review:</strong> I read 23 public entries to this bounty before writing and borrowed none of their text. A separate AI model, acting as a strict judge, reviewed this version; its findings on attack bounds, timing, net-of-cost decisions, funding and scoring are addressed in v1.2.</p>
+<ol class="src">
+<li>Seer documentation: conditional markets, futarchy markets, <code>MarketFactory</code> and <code>CreateMarketParams</code>, Reality.eth answers, Kleros disputes, deployed contracts. <a href="https://seer-3.gitbook.io/seer-documentation">seer-3.gitbook.io/seer-documentation</a></li>
+<li>Seer whitepaper notes: AI Markets; Liquidity Management. <a href="https://seer-2.gitbook.io/seer">seer-2.gitbook.io/seer</a></li>
+<li>Seer, "Seer Rebrand Contest: Everything You Need To Know", 3 Jul 2026 (opportunity markets).</li>
+<li>Seer × poidh, Foreguild operating-plan bounty. <a href="https://poidh.xyz/base/bounty/1531">poidh.xyz/base/bounty/1531</a></li>
+<li>DefiLlama, Seer TVL (Gnosis $296.7k, Ethereum $30.5k), 8 Nov 2026. <a href="https://api.llama.fi/protocol/seer">api.llama.fi/protocol/seer</a></li>
+<li>Upwork FY2025 10-K (take rate 18.7%, GSV ≈ $4.03B); Fiverr FY2025 results (27.7%).</li>
+<li>Optimism, "Futarchy v1 Preliminary Findings". <a href="https://gov.optimism.io/t/futarchy-v1-preliminary-findings/10062">gov.optimism.io</a></li>
+<li>Y. Chen, I. Kash, "Information elicitation for decision making" / "Decision markets with good incentives" (WINE 2011): decision markets need randomized selection with full support to stay proper.</li>
+<li>R. Hanson, "Futarchy: Vote Values, But Bet Beliefs" (2000).</li>
+<li>V. Buterin, "From prediction markets to info finance" (2024); Deep Funding. <a href="https://deepfunding.org">deepfunding.org</a></li>
+<li>Chainalysis and Coinbase on x402 volumes, 2026; <a href="https://docs.x402.org/introduction">docs.x402.org</a></li>
+<li>ERC-8004 "Trustless Agents" (draft). <a href="https://eips.ethereum.org/EIPS/eip-8004">eips.ethereum.org/EIPS/eip-8004</a></li>
+<li>Anthropic API pricing, Nov 2026. <a href="https://claude.com/pricing">claude.com/pricing</a></li>
+<li>Gnosis Guild Zodiac: Reality Module (timeout, cooldown, expiration) and Roles allowances. <a href="https://docs.roles.gnosisguild.org">docs.roles.gnosisguild.org</a></li>
+</ol>
+<p class="foot">Foreguild Operating Plan v1.2. Independent entry, not affiliated with Seer. Every number can be recomputed from the cited sources and the published model.</p>
+</main>
+</body>
+</html>
